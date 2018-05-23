@@ -61,9 +61,64 @@ rddr
 근데 이걸 어떻게 구현하지.. -_-
 
 
+와쿠이 요시유키라는 사람이 쓴 수학 사전을 빌려왔다.
+101번 항목인 순열의 공식에 답이 있다.
 
+기본 개념.
+a,b,c 알파벳으로 두자리 문자를 만들때 경우의 수를 구하라 하면
+3*3 = 9 
+첫째자리 abc중 하나, 둘째자리 abc중 하나, 이 경우의 수들을 곱하면, 두자리일때 경우의 수가 나온다.
+
+a,b,c,d,e 알파벳으로 두자리 문자를 만든다면
+5*5 = 25
+경우의 수가 많이 늘어났다.
+
+그럼 한번 쓴 알파벳을 못 쓰도록 막는다면?
+a,b,c,d,e가 각각 하나의 카드라고 가정하는 거지.
+5*4 = 20
+첫째자리는 다섯개중 다섯개 다 가능
+둘째자리는 다섯개중 네개만 가능
+이런식으로, 곱해나가면, 답이 나온다.
+다섯자리를 만들어야한다면, 5!이 답이다.
+
+그리고 이 문제의 경우 같은 종류를 포함하는 순열의 공식이라고 볼 수 있다.
+카드가 모두 n장이 있는데, 그 가운데 a카드가 p장, b카드가 q장, c카드가 r장이라고 가정하면
+이 카드 n장을 늘어놓아서 만들 수 있는 서로 다른 순열의 수는
+n!/p!q!r!... (단 p+q+r...=n)
+이 된다.
+
+모든 카드 n장이 서로 구별이 가능하다면 위에서 본 것처럼 n!이 된다. << 이부분은 잘 이해가 안간다..
+
+
+
+3*3의 그리드라고 치면 rrrddd 이 조합이고, n=6, p=3, q=3 이므로
+6!/3!3! = 20
+이게 답이다.
+
+그럼 
+20*20이면
+n=40, p=20, q=20
+40!/20!20! = ?
+
+구하면 된다.
 
 '''
+
+def factorial(number):
+    if number == 1:
+        return 1
+    else:
+        return number * factorial(number-1)
+
+#print(factorial(40)) #815915283247897734345611269596115894272000000000
+#print(factorial(20)) #2432902008176640000
+#print(2432902008176640000*2432902008176640000) #5919012181389927685417441689600000000
+
+#print(815915283247897734345611269596115894272000000000/5919012181389927685417441689600000000) #137846528820.0
+
+print(factorial(12))
+'''
+
 def mergeRoute(str, routeSet):
     routeSet.add("".join(str))
     for i in range(0, len(str)):
@@ -74,19 +129,22 @@ def mergeRoute(str, routeSet):
                 temp = tempStr[j]
                 tempStr[j] = tempStr[i]
                 tempStr[i] = temp
-                #print("".join(tempStr))
+                print("".join(tempStr))
                 routeSet.add("".join(tempStr))
 
 routeSet = set([])
 str = list('r'*3 + 'd'*3)
 #print(str)
 mergeRoute(str, routeSet)
+print("===========")
 str2 = list(str[::-1]) # 문자열 뒤집어서 한번 더 돌린다.
 #print(str2)
-mergeRoute(str2, routeSet)
+#mergeRoute(str2, routeSet)
 
-print(routeSet)
+#print(routeSet)
 #for route in routeSet:
 #    print(route)
 print(len(routeSet)) #802 이럴수가... 틀린답이라고 한다.. 그럴리가 없는데....
+#이렇게 하면 모든 경우의 수가 다 나오지 않는다. 틀린 풀이이다.
 
+'''
