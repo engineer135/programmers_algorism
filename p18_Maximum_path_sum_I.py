@@ -28,33 +28,40 @@ Find the maximum total from top to bottom of the triangle below:
 
 NOTE: As there are only 16384 routes, it is possible to solve this problem by trying every route. 
 However, Problem 67, is the same challenge with a triangle containing one-hundred rows; it cannot be solved by brute force, and requires a clever method! ;o)
+
+아 모든 경로를 다 더해본다음에 그중에 가장 큰 값을 찾는 거였구나.
+문제 자체를 잘못 이해했네 멍청이처럼 -_-
+이걸 어떻게 풀어야 스마트하게 풀었다고 할 수 있을까...
+고민해보자...
+
 '''
 
 index = 0
-max = 0
+maxNum = 0
 sum = 0
 with open(".\p18_sample", "r") as f:
     lines = f.readlines()
     for line in lines:
         list = line.split()
-        minIndex = index if index-1 < 0 else index-1
+        minIndex = index
         maxIndex = index if index+1 >= len(list) else index+1
 
-        print(max([list[minIndex], list[index], list[maxIndex]]))
-        #max = max([list[minIndex], list[index], list[maxIndex]])
+        print("index==",index)
+        print("minIndex==",minIndex)
+        print("maxIndex==",maxIndex)
 
-        print(max)
+        maxNum = max([list[minIndex], list[maxIndex]])
 
-'''
-        if max == list[minIndex]:
+        print(maxNum)
+
+        if maxNum == list[minIndex]:
             index = minIndex
-        elif max == list[index]:
+        elif maxNum == list[index]:
             index = index
-        elif max == list[maxIndex]:
+        elif maxNum == list[maxIndex]:
             index = maxIndex
-            '''
 
-        #sum += max
+        sum += int(maxNum)
         #print("sum", sum)
 
-print("sum", sum)
+print("final sum", sum)
