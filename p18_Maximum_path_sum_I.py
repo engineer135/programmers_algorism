@@ -36,6 +36,7 @@ However, Problem 67, is the same challenge with a triangle containing one-hundre
 
 '''
 
+'''
 index = 0
 maxNum = 0
 sum = 0
@@ -65,3 +66,92 @@ with open(".\p18_sample", "r") as f:
         #print("sum", sum)
 
 print("final sum", sum)
+'''
+
+'''
+두달만에 이 문제를 다시 잡아본다.
+모든 수를 더하는 게 아닌 다른 방법이 있다는데.. 그게 뭘까..
+
+일단 모든 수를 더하는 방법으로 풀어보자. 가장 간단하게.
+
+0000 
+0001
+0010 0011 0012
+
+경우의 수가 엄청 많은데 -_-...
+굳이 다 더할 필요가 있을까.. 어차피 가장 큰 값만 찾으면 되는데 음...
+
+으악... 결국 답을 찾아봤다 -_-;;;;;;
+https://stackoverflow.com/questions/8002252/euler-project-18-approach
+설명을 보니 역시나 간단하다.. 
+밑에서부터 가장 큰 경우의 수를 찾아서 더해나가면 답이 나오는구나 허참..
+알고리즘이란게 원래 그런거지만.. 남이 해놓은거 보면 참 간단하다 젠장
+알고리즘을 알았으니 짜는거만이라도 직접 해보자 -_-
+
+'''
+
+from functools import reduce
+
+def getMaxList(list):
+    tempList = []
+    index = 0
+
+    for idx in range(index, len(list)-1):
+        a = list[idx]
+        b = list[idx+1]
+        bigger = reduce(lambda a,b : a if a > b else b, [a,b])
+        tempList.append(bigger)
+
+    return tempList
+
+def getSumList(orgList, targetList):
+    tempList = []
+    index = 0
+
+    for idx in range(index, len(orgList)):
+        #print(orgList[idx])
+        #print(targetList[idx])
+        tempList.append(int(orgList[idx]) + int(targetList[idx]))
+    
+    print(tempList)
+
+    return tempList
+
+index = 1
+lineIndex = 0
+sumList = []
+with open(".\p18_sample", "r") as f:
+    lines = f.readlines()
+    lineIndex = len(lines) - 1
+
+    #print(lines[lineIndex])
+    #list = lines[lineIndex].split()
+    #print(getMaxList(list))
+
+    sumList = getSumList(getMaxList(lines[lineIndex].split()), lines[lineIndex-index].split())
+
+    while(len(sumList) > 1):
+        index += 1
+        sumList = getSumList(getMaxList(sumList), lines[lineIndex-index].split())
+
+'''
+[125, 164, 102, 95, 112, 123, 165, 128, 166, 109, 122, 147, 100, 54]
+[255, 235, 154, 150, 140, 179, 256, 209, 224, 172, 174, 176, 148]
+[325, 246, 187, 178, 256, 329, 273, 302, 263, 242, 193, 233]
+[378, 317, 231, 321, 354, 372, 393, 354, 360, 293, 247]
+[419, 365, 393, 387, 419, 425, 430, 376, 454, 322]
+[460, 434, 419, 475, 508, 470, 510, 524, 487]
+[559, 499, 479, 536, 514, 526, 594, 616]
+[647, 501, 613, 609, 533, 657, 683]
+[666, 614, 636, 684, 660, 717]
+[686, 640, 766, 731, 782]
+[704, 801, 853, 792]
+[818, 900, 935]
+[995, 999]
+[1074]
+
+답이 나오는구나
+분발하자.
+
+'''
+
